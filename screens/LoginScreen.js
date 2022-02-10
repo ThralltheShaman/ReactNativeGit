@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { auth } from '../firebase'
 
-export default LoginScreen
+
 
 const LoginScreen = () => {
 
@@ -81,7 +81,7 @@ const LoginScreen = () => {
   )
 }
 
-
+export default LoginScreen
 
 const styles = StyleSheet.create({
     container: {
