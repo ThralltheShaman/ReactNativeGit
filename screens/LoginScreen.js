@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/core'
 import React, { useEffect, useState } from 'react'
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 
 const LoginScreen = () => {
@@ -32,7 +32,7 @@ const LoginScreen = () => {
     //     .catch(error => alert(error.message))
     // }
   
-    const auth = getAuth();
+    const auth1 = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in 
@@ -55,7 +55,7 @@ const LoginScreen = () => {
     //     .catch(error => alert(error.message))
     // }
 
-    const auth = getAuth();
+    const auth2 = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in 
