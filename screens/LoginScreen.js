@@ -1,8 +1,8 @@
 import { useNavigation } from '@react-navigation/core'
 import React, { useEffect, useState } from 'react'
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import { auth } from '../firebase'
-
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 
 const LoginScreen = () => {
@@ -22,25 +22,51 @@ const LoginScreen = () => {
       return unsubscribe
     }, [])
   
-    const handleSignUp = () => {
-      auth
-        .createUserWithEmailAndPassword(email, password)
-        .then(userCredentials => {
-          const user = userCredentials.user;
-          console.log('Registered with:', user.email);
-        })
-        .catch(error => alert(error.message))
-    }
+    // const handleSignUp = () => {
+    //   auth
+    //     .createUserWithEmailAndPassword(email, password)
+    //     .then(userCredentials => {
+    //       const user = userCredentials.user;
+    //       console.log('Registered with:', user.email);
+    //     })
+    //     .catch(error => alert(error.message))
+    // }
   
-    const handleLogin = () => {
-      auth
-        .signInWithEmailAndPassword(email, password)
-        .then(userCredentials => {
-          const user = userCredentials.user;
-          console.log('Logged in with:', user.email);
-        })
-        .catch(error => alert(error.message))
-    }
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });
+
+    // const handleLogin = () => {
+    //   auth
+    //     .signInWithEmailAndPassword(email, password)
+    //     .then(userCredentials => {
+    //       const user = userCredentials.user;
+    //       console.log('Logged in with:', user.email);
+    //     })
+    //     .catch(error => alert(error.message))
+    // }
+
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
+
 
   return (
     <KeyboardAvoidingView
@@ -65,13 +91,13 @@ const LoginScreen = () => {
 
     <View style={styles.buttonContainer}>
       <TouchableOpacity
-        onPress={handleLogin}
+        onPress={signInWithEmailAndPassword}
         style={styles.button}
       >
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={handleSignUp}
+        onPress={createUserWithEmailAndPassword}
         style={[styles.button, styles.buttonOutline]}
       >
         <Text style={styles.buttonOutlineText}>Register</Text>
